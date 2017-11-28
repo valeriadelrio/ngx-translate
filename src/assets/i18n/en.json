@@ -1,0 +1,9 @@
+{
+    "navbar": {
+        "navegacion":"Navbar",
+        "home": " Home",
+        "features": " Features",
+        "pricing": " Pricing",
+        "disabled": " Disabled"
+    }
+}

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
-import {FormControl, FormGroup} from '@angular/forms';
+import { } from './lang.interface';
+import { LanguagesService} from '../../services/languages/languages.component';
 
 @Component({
   selector: 'app-navbar',
@@ -11,17 +10,22 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class NavbarComponent implements OnInit {
 
-    binding: string = "";
+
     idiomas: any = ['Inglés' , 'Español', 'Portugues'];
-    uno: any = this.idiomas[0];
+    idioma: any = "";
+    langSession:string = "";
+    // lang: Lang;
 
 
-    constructor(translate: TranslateService) {
+    constructor(private translate: TranslateService, private ls:LanguagesService) {
         // this language will be used as a fallback when a translation isn't found in the current language
         translate.setDefaultLang('en');
 
-         // the lang to use, if the lang isn't available, it will use the current loader to get them
+        // this.lang.label=['Inglés' , 'Español', 'Portugues'];
+        // this.lang.id=['en' , 'es', 'pt'];
+        // the lang to use, if the lang isn't available, it will use the current loader to get them
         // translate.use('es');
+
     }
 
 
@@ -29,16 +33,25 @@ export class NavbarComponent implements OnInit {
 
     }
 
-    HttpLoaderFactory(http: HttpClient) {
-        return new TranslateHttpLoader(http, "assets/i18n/", ".json");
+    setLang(lang:string){
+      switch (lang){
+        case "Español": {
+          this.translate.use('es');
+          this.langSession = 'es';
+          break;
+        }
+        case "Inglés": {
+          this.translate.use('en');
+          this.langSession = 'en';
+          break;
+        }
+        case "Portugues": {
+          this.translate.use('pt');
+          this.langSession = 'pt';
+          break;
+        }
+      }
+      // location.reload();
     }
-
-    setLang(translate: TranslateService){
-        console.log("Hola");
-        console.log(translate.getDefaultLang);
-      translate.use('pt');
-    }
-
-
 
 }
